@@ -3,7 +3,8 @@ const express = require('express')
 
 const app = express()
 const morgan = require('morgan')
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000
+const db = require('./db')
 
 const data = {
     restaurants: [
@@ -65,27 +66,45 @@ app.use(morgan('tiny'))
 app.post('/api/v1/restaurants', (req, res) => {
     console.log(req.body)
     // console.log(req)
+    res.status(201).json({
+        status: 'success',
+        data: {
+            restaurant: 'McDonalds'
+        }
+    })
 })
 
-// read
-app.get('/api/v1/restaurants', (req, res) => {
+// read all
+app.get('/api/v1/restaurants', async (req, res) => {
+    const results = await db.query("select * from restaurants");
+    console.log(results);
     res.status(200).json(data)
 })
 
 // read one
 app.get('/api/v1/restaurants/:id', (req, res) => {
     console.log(req.params.id)
+    res.status(200).json(data.restaurants[0])
 })
 
 // update
 app.put('/api/v1/restaurants/:id', (req, res) => {
     console.log(req.params.id)
     console.log(req.body)
+    res.status(200).json({
+        status: 'success',
+        data: {
+            restaurant: 'bonjour'
+        }
+    })
 })
 
 // delete
 app.delete('/api/v1/restaurants/:id', (req, res) => {
     console.log(req.params.id)
+    res.status(204).json({
+        status: 'success'
+    })
 })
 
 app.listen(port, () => {
