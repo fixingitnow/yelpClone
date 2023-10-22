@@ -55,20 +55,36 @@ const data = {
     ]
 }
 
+// gives us ability to access the json
+app.use(express.json())
 // Define middleware at the top so it catches everything
 // if next is not used it's usually skipped
 app.use(morgan('tiny'))
 
+// create
 app.post('/api/v1/restaurants', (req, res) => {
-    console.log('hello')
+    console.log(req.body)
     // console.log(req)
 })
 
+// read
 app.get('/api/v1/restaurants', (req, res) => {
     res.status(200).json(data)
 })
 
+// read one
 app.get('/api/v1/restaurants/:id', (req, res) => {
+    console.log(req.params.id)
+})
+
+// update
+app.put('/api/v1/restaurants/:id', (req, res) => {
+    console.log(req.params.id)
+    console.log(req.body)
+})
+
+// delete
+app.delete('/api/v1/restaurants/:id', (req, res) => {
     console.log(req.params.id)
 })
 
