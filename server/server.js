@@ -56,10 +56,13 @@ const data = {
   ],
 };
 
-// gives us ability to access the json
-app.use(express.json());
 // Define middleware at the top so it catches everything
 // if next is not used it's usually skipped
+
+// gives us ability to access the json
+app.use(express.json());
+
+// morgan is a logger helps print out the request in the console for debugging 
 app.use(morgan("tiny"));
 
 // create
